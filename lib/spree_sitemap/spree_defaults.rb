@@ -41,7 +41,7 @@ module SpreeSitemap::SpreeDefaults
 
   #Added by Suyash - to avoid /t in the hard coded taxon permalinks. Urls are seo friendly and need it in sitemap too.
   def modified_taxons_path(taxon) 
-    pemalink = taxon.permalink.split("/").last
+    permalink = taxon.permalink.split("/").last
     path_to_taxon = "/products/cards/" + permalink
     return path_to_taxon
   end
