@@ -30,12 +30,12 @@ module SpreeSitemap::SpreeDefaults
   end
 
   def add_taxons(options={})
-    Spree::Taxon.roots.each {|taxon| add_taxon(taxon, options) if !taxon.permalink.include? "featured" } #Avoiding all taxons just for featured purposes.
+    Spree::Taxon.roots.each {|taxon| add_taxon(taxon, options)} #Avoiding all taxons just for featured purposes.
   end
 
   def add_taxon(taxon, options={})
     #add(nested_taxons_path(taxon.permalink), options.merge(:lastmod => taxon.products.last_updated))
-    add(modified_taxons_path(taxon), options.merge(:lastmod => taxon.products.last_updated))
+    add(modified_taxons_path(taxon), options.merge(:lastmod => taxon.products.last_updated))  if !taxon.permalink.include? "featured" 
     taxon.children.each {|child| add_taxon(child, options) }
   end
 
