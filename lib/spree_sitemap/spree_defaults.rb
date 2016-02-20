@@ -34,7 +34,15 @@ module SpreeSitemap::SpreeDefaults
   end
 
   def add_taxon(taxon, options={})
-    add(nested_taxons_path(taxon.permalink), options.merge(:lastmod => taxon.products.last_updated))
+    #add(nested_taxons_path(taxon.permalink), options.merge(:lastmod => taxon.products.last_updated))
+    add(modified_taxons_path(taxon.permalink), options.merge(:lastmod => taxon.products.last_updated))
     taxon.children.each {|child| add_taxon(child, options) }
+  end
+
+  #Added by Suyash - to avoid /t in the hard coded taxon permalinks. Urls are seo friendly and need it in sitemap too.
+  def modified_taxons_path(taxon) 
+    pemalink = taxon.permalink.split("/").last
+    path_to_taxon = "/products/cards/" + permalink
+    return path_to_taxon
   end
 end
