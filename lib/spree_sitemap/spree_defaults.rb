@@ -30,7 +30,7 @@ module SpreeSitemap::SpreeDefaults
   end
 
   def add_taxons(options={})
-    Spree::Taxon.roots.each {|taxon| add_taxon(taxon, options) }
+    Spree::Taxon.roots.each {|taxon| add_taxon(taxon, options) if !taxon.permalink.include? "featured" } #Avoiding all taxons just for featured purposes.
   end
 
   def add_taxon(taxon, options={})
